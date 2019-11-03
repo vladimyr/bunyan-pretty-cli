@@ -1,0 +1,61 @@
+{
+  "name": "bunyan-pretty-cli",
+  "version": "0.0.0",
+  "description": "Prettifier for Bunyan log lines",
+  "keywords": [
+    "bunyan",
+    "log",
+    "ndjson"
+  ],
+  "homepage": "https://github.com/vladimyr/bunyan-pretty-cli",
+  "bugs": {
+    "url": "https://github.com/vladimyr/bunyan-pretty-cli/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vladimyr/bunyan-pretty-cli.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Dario Vladovic",
+    "email": "d.vladimyr+dev@gmail.com",
+    "url": "https://github.com/vladimyr"
+  },
+  "files": [
+    "cli.js"
+  ],
+  "bin": {
+    "bunyan-pretty": "cli.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "dargs": "^7.0.0",
+    "dedent": "^0.7.0",
+    "joycon": "^2.2.5",
+    "minimist": "^1.2.0",
+    "rewire": "^4.0.1",
+    "strip-json-comments": "^3.0.1"
+  },
+  "devDependencies": {
+    "@extensionengine/eslint-config": "^1.1.0",
+    "babel-eslint": "^10.0.3",
+    "del": "^5.1.0",
+    "eslint": "^6.6.0",
+    "eslint-config-semistandard": "^15.0.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^5.2.3",
+    "execa": "^3.2.0",
+    "jest": "^24.9.0"
+  }
+}

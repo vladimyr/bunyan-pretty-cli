@@ -22,7 +22,8 @@
     "url": "https://github.com/vladimyr"
   },
   "files": [
-    "cli.js"
+    "cli.js",
+    "rewire.js"
   ],
   "bin": {
     "bunyan-pretty": "cli.js"

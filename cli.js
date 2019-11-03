@@ -3,7 +3,7 @@
 'use strict';
 
 const args = require('minimist')(process.argv.slice(2));
-const bunyan = require('rewire')('bunyan/bin/bunyan');
+const bunyan = require('./rewire')('bunyan/bin/bunyan');
 const dargs = require('dargs');
 const dedent = require('dedent');
 const JoyCon = require('joycon');
@@ -110,5 +110,5 @@ function loadConfig(configPath) {
   if (configPath && !result.data) {
     throw new Error(`Failed to load runtime configuration file: ${configPath}`);
   }
-  return result.data;
+  return result.data || {};
 }

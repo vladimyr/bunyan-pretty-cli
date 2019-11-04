@@ -26,7 +26,7 @@ test('loads and applies default config file: bunyan-pretty.config.js', () => {
   proc.stdin.write(LOG_LINE);
   return proc.catch(err => {
     if (!err.isCanceled) throw err;
-    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world\n');
+    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world');
   });
 });
 
@@ -38,7 +38,7 @@ test('loads and applies default config file: .bunyan-prettyrc', () => {
   proc.stdin.write(LOG_LINE);
   return proc.catch(err => {
     if (!err.isCanceled) throw err;
-    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world\n');
+    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world');
   });
 });
 
@@ -50,7 +50,7 @@ test('loads and applies default config file: .bunyan-prettyrc.json', () => {
   proc.stdin.write(LOG_LINE);
   return proc.catch(err => {
     if (!err.isCanceled) throw err;
-    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world\n');
+    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world');
   });
 });
 
@@ -62,7 +62,7 @@ test('loads and applies custom config file: bunyan-pretty.test.json', () => {
   proc.stdin.write(LOG_LINE);
   return proc.catch(err => {
     if (!err.isCanceled) throw err;
-    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world\n');
+    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world');
   });
 });
 
@@ -74,7 +74,7 @@ test('loads and applies custom config file: bunyan-pretty.test.js', () => {
   proc.stdin.write(LOG_LINE);
   return proc.catch(err => {
     if (!err.isCanceled) throw err;
-    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world\n');
+    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world');
   });
 });
 

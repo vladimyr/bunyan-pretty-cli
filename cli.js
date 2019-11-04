@@ -58,7 +58,7 @@ function main({ config, ...args }) {
 function parseArgv(input) {
   const options = _parseArgv.call(this, input);
   const config = loadConfig(args.config);
-  if (config.level) config.level = levelFromName[config.level];
+  if (config.level) config.level = levelFromName[config.level.toLowerCase()];
   if (config.outputMode) config.outputMode = OM_FROM_NAME[config.outputMode];
   return Object.assign(options, config);
 }
@@ -85,16 +85,16 @@ function emitRecord(record, line, options, stylize) {
   if (![OM_LONG, OM_SHORT].includes(outputMode) || !isValidRecord(record)) {
     return _emitRecord.apply(this, arguments);
   }
-  const extras = [];
+  let extras = '';
   const newRecord = Object.entries(record).reduce((acc, [key, value]) => {
     const customPrettifier = customPrettifiers[key];
     if (!isFunction(customPrettifier)) {
       return Object.assign(acc, { [key]: value });
     }
-    extras.push(indent(`${key}: ${customPrettifier(value, key, record)}`));
+    extras += indent(`${key}: ${customPrettifier(value, key, record)}`) + '\n';
     return acc;
   }, {});
-  bunyan.__set__('emit', input => emit(input + extras.join('\n') + '\n'));
+  bunyan.__set__('emit', input => emit(input + extras));
   const result = _emitRecord.call(this, newRecord, line, options, stylize);
   bunyan.__set__('emit', emit);
   return result;

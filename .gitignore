@@ -8,6 +8,7 @@ npm-debug.log*
 
 # editors
 .idea
+.vscode
 *.sublime-*
 
 # general

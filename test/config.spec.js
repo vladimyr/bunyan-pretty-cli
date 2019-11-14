@@ -4,19 +4,21 @@
 
 const { mkdirSync, writeFileSync } = require('fs');
 const cli = require.resolve('../cli');
+const crypto = require('crypto');
 const del = require('del');
 const execa = require('execa');
 const path = require('path');
 
+const md5 = input => crypto.createHash('md5').update(input).digest('base64');
+
 const LOG_LINE = '{"name":"test","hostname":"localhost","pid":85421,"level":20,"msg":"hello world","time":"2019-11-03T21:07:47.064Z","v":0}\n';
 
 let configFile;
-const tempDir = path.join(__dirname, '.tmp_' + Date.now());
+const tempDir = path.join(process.env.TEMP_DIR, 'data_' + md5(__filename));
 
 mkdirSync(tempDir);
 
-afterAll(() => del.sync(tempDir));
-afterEach(() => del.sync(configFile));
+afterEach(() => del(configFile));
 
 test('loads and applies default config file: bunyan-pretty.config.js', () => {
   configFile = path.join(tempDir, 'bunyan-pretty.config.js');

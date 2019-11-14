@@ -34,7 +34,9 @@
     "test": "jest"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "globalSetup": "./test/setup.js",
+    "globalTeardown": "./test/teardown.js"
   },
   "dependencies": {
     "bunyan": "^1.8.12",

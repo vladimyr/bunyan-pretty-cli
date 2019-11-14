@@ -53,6 +53,7 @@ function parseArgv(input) {
   const config = loadConfig(args.config);
   if (config.level) config.level = levelFromName[config.level.toLowerCase()];
   if (config.outputMode) config.outputMode = OM_FROM_NAME[config.outputMode];
+  // TODO: Override config with cli options!
   return Object.assign(options, config);
 }
 

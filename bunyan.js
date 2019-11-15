@@ -1,6 +1,9 @@
 'use strict';
 
-const bunyan = require('./rewire')('bunyan/bin/bunyan');
+const bunyan = require('./rewire')('bunyan/bin/bunyan', code => {
+  // Remove shebang.
+  return code.replace(/^#!(.*?)\n/g, '');
+});
 
 const getter = (proxiedModule, name) => ({
   get: () => proxiedModule.__get__(name)

@@ -3,14 +3,12 @@
 const fs = require('fs');
 const rewire = require('rewire');
 
-module.exports = modulePath => {
+module.exports = (modulePath, transform) => {
   modulePath = require.resolve(modulePath);
   const { readFileSync } = fs;
   fs.readFileSync = function (path, options) {
     if (path !== modulePath) return readFileSync(path, options);
-    const code = readFileSync(path, options);
-    // Remove shebang.
-    return code.replace(/^#!(.*?)\n/g, '');
+    return transform(readFileSync(path, 'utf-8'));
   };
   const result = rewire(modulePath);
   fs.readFileSync = readFileSync;

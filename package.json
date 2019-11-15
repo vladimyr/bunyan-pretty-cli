@@ -31,12 +31,13 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "release": "npx np",
     "test": "jest"
   },
   "jest": {
-    "testEnvironment": "node",
     "globalSetup": "./test/setup.js",
-    "globalTeardown": "./test/teardown.js"
+    "globalTeardown": "./test/teardown.js",
+    "testEnvironment": "node"
   },
   "dependencies": {
     "bunyan": "^1.8.12",

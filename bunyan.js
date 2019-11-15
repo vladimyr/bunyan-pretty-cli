@@ -1,8 +1,19 @@
 'use strict';
 
+const dedent = require('dedent');
 const bunyan = require('./rewire')('bunyan/bin/bunyan', code => {
-  // Remove shebang.
-  return code.replace(/^#!(.*?)\n/g, '');
+  return code
+    // Remove shebang.
+    .replace(/^#!(.*?)\n/g, '')
+    // Modify `parseArgv(argv)` method.
+    .replace(
+      /function\s+parseArgv\s*\(\s*argv\s*\)\s*{\s*var\s+parsed\s*=/m,
+      dedent`
+        function parseArgv(argv) {
+          var parsed = { args: [] };
+          parsed._defaults =
+      `
+    );
 });
 
 const getter = (proxiedModule, name) => ({

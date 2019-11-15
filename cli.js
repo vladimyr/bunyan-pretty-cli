@@ -43,18 +43,17 @@ main(args);
 function main({ config, ...args }) {
   const argv = process.argv.slice(0);
   argv.length = 2;
-  argv.push(...dargs(args));
+  argv.push(...dargs(args, { useEquals: false }));
   bunyan.main(argv);
 }
 
 function parseArgv(input) {
   const { levelFromName, OM_FROM_NAME } = bunyan;
-  const options = _parseArgv.call(this, input);
+  const { _defaults: defaultOptions, ...options } = _parseArgv.call(this, input);
   const config = loadConfig(args.config);
   if (config.level) config.level = levelFromName[config.level.toLowerCase()];
   if (config.outputMode) config.outputMode = OM_FROM_NAME[config.outputMode];
-  // TODO: Override config with cli options!
-  return Object.assign(options, config);
+  return Object.assign({}, defaultOptions, config, options);
 }
 
 function printHelp() {

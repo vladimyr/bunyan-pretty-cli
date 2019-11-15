@@ -80,6 +80,18 @@ test('loads and applies custom config file: bunyan-pretty.test.js', () => {
   });
 });
 
+test('cli options override config options', () => {
+  configFile = path.join(tempDir, 'bunyan-pretty.config.js');
+  writeFileSync(configFile, 'module.exports = { outputMode: \'long\' };');
+  const proc = execa(process.argv0, [cli, '--output', 'short'], { cwd: tempDir });
+  proc.stdout.once('data', () => proc.cancel());
+  proc.stdin.write(LOG_LINE);
+  return proc.catch(err => {
+    if (!err.isCanceled) throw err;
+    expect(err.stdout).toBe('21:07:47.064Z DEBUG test: hello world');
+  });
+});
+
 test('throws on missing config file', async () => {
   const args = [cli, '--config', 'bunyan-pretty.config.missing.js'];
   const { stderr } = await execa(process.argv0, args, { cwd: tempDir, reject: false });

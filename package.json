@@ -45,7 +45,6 @@
     "dedent": "^0.7.0",
     "joycon": "^2.2.5",
     "minimist": "^1.2.0",
-    "rewire": "^4.0.1",
     "strip-json-comments": "^3.0.1"
   },
   "devDependencies": {

@@ -2,18 +2,36 @@
 
 const dedent = require('dedent');
 const bunyan = require('./rewire')('bunyan/bin/bunyan', code => {
-  return code
-    // Remove shebang.
-    .replace(/^#!(.*?)\n/g, '')
-    // Modify `parseArgv(argv)` method.
-    .replace(
-      /function\s+parseArgv\s*\(\s*argv\s*\)\s*{\s*var\s+parsed\s*=/m,
-      dedent`
-        function parseArgv(argv) {
-          var parsed = { args: [] };
-          parsed._defaults =
-      `
-    );
+  // Remove shebang.
+  code = code.replace(/^#!(.*?)\n/g, '');
+
+  // Modify `parseArgv(argv)` method.
+  code = code.replace(
+    /function\s+parseArgv\s*\(\s*argv\s*\)\s*{\s*var\s+parsed\s*=/m,
+    dedent`
+      function parseArgv(argv) {
+        var parsed = { args: [] };
+        parsed._defaults =
+    `
+  );
+
+  // Simplified versions of injected `rewire` getter/setter.
+  code += dedent`
+    \n;var format = require('util').format;
+
+    exports.__set__ = function () {
+      arguments.varName = arguments[0];
+      arguments.varValue = arguments[1];
+      return eval(format('%s = arguments.varValue;', arguments.varName));
+    };
+
+    exports.__get__ = function () {
+      arguments.varName = arguments[0];
+      return eval(arguments.varName);
+    };
+  `;
+
+  return code;
 });
 
 const getter = (proxiedModule, name) => ({
